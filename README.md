@@ -8,4 +8,13 @@
 
 # Çalışkan Arı Todo sitesi
 
+### Login page
+<img width="1273" alt="Screenshot 2025-06-18 at 14 52 34" src="https://github.com/user-attachments/assets/e4b6ebc7-61b9-4a47-9d1d-6a9e8b3d3f8d" />
+
+### Sign-in page
+<img width="1269" alt="Screenshot 2025-06-18 at 14 53 31" src="https://github.com/user-attachments/assets/839762a1-9ba6-4e09-bc08-c86503fccd7e" />
+
+## Forgot password page
+<img width="1270" alt="Screenshot 2025-06-18 at 14 54 27" src="https://github.com/user-attachments/assets/722b745e-24a8-4aa6-8825-744c1eda96f2" />
+
 ### .env dosyası güvenlik sebebiyle eklenmedi.
