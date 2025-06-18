@@ -14,6 +14,7 @@ import { LastBanner } from "@/components/last-banner/last-banner";
 import LearnersStudents from "@/components/learners-students/learners-students";
 import { LogoBanner } from "@/components/logo-banner/logo-banner";
 import MainSection from "@/components/main-section/main-section";
+import TodoSection from "@/components/todo-section/todo-section";
 import { TopClassCourses } from "@/components/top-class-courses/top-class-courses";
 import { VideoSection } from "@/components/video-section/video-section";
 
@@ -29,8 +30,13 @@ const HomeContainer = () => {
   return (
     <>
       <SearchBar />
-      <MainSection />
-      <InfoSection />
+    {!data && 
+      <>
+        <MainSection />
+        <InfoSection />
+      </>
+      }
+      {data && <TodoSection />}
       {/* <TopClassCourses />
       <LearnersStudents />
       <FeaturedCourses />

@@ -85,9 +85,8 @@ export const Footer = () => {
         <div>
           <ul className="text-cst_grey flex flex-col gap-3 leading-7">
             <li className="text-cst_purple font-semibold text-xl pb-3">
-              Çalışkan Arı Yayınları
+              Çalışkan Arı Todo App
             </li>
-            <li>En çok satılan yayın evi.</li>
             <li>
               <a
                 className="flex items-center gap-2 justify-center md:justify-start"
@@ -190,7 +189,7 @@ export const Footer = () => {
       </div>
       <div className="lg:flex lg:justify-around  bg-cream pt-8 pb-5 text-cst_grey text-center text-sm relative">
         <p>
-          © Çalışkan Arı Tüm hakları saklıdır. İzinsiz kullanılması yasaktır.
+          © Çalışkan Arı Todo Tüm hakları saklıdır. İzinsiz kullanılması yasaktır.
         </p>
 
         <ScrollToTop />

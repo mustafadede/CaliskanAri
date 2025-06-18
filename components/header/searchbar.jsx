@@ -61,7 +61,7 @@ export const SearchBar = () => {
       <header className="bg-cream flex lg:flex-col justify-between">
         <TopBar />
         <nav
-          className={`flex items-center justify-between p-4 pb-0 ${
+          className={`flex md:hidden items-center justify-between p-4 pb-0 ${
             isHeaderFixed ? "fixed -top-1 z-50 w-full  bg-white  " : ""
           }`}
           aria-label="Global"

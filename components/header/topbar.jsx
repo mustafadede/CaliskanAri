@@ -45,24 +45,24 @@ export const TopBar = () => {
   const { logo } = image;
   const { phone } = contact;
   return (
-    <div className=" flex justify-between items-center mx-6 my-2 max-w-full">
+    <div className=" flex justify-between h-28 items-center mx-6 my-2 max-w-full">
       <div>
         <a href="#">
           <Image
             className="h-auto max-w-ful mb-4"
             src={logo}
-            width={100}
-            height={100}
+            width={250}
+            height={250}
             alt="Logo"
           />
         </a>
       </div>
-    {data &&  <div className="relative rounded-md hidden lg:flex">
+    {/* {data &&  <div className="relative rounded-md hidden lg:flex">
         <div className="absolute inset-y-0 left-5 flex items-center">
           <Popover.Group className="lg:gap-x-12">
             <Popover className="relative">
               <Popover.Button className="flex items-center gap-x-1 text-sm leading-6 text-gray-900">
-                Label ekle
+               Ara
                 <ChevronDownIcon
                   className="h-5 w-5 flex-none text-gray-400 ml-5"
                   aria-hidden="true"
@@ -110,7 +110,7 @@ export const TopBar = () => {
             <IoIosAdd style={{ fontSize: "25px" }} /> Ekle
           </button>
         </div>
-      </div>}
+      </div>} */}
       <div className="flex items-center">
 
         <div className="gap-5 pt-5 lg:pt-0 hidden lg:flex pr-3">
