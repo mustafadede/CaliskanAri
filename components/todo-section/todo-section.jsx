@@ -22,7 +22,6 @@ function TodoSection() {
     const bgColorData = getAPI("/home/HomeBgColor");
     bgColorData
       .then(function (result) {
-        console.log(result);
         const mainBgColorInfo = result.find((item) => item.pageId === "main");
         if (mainBgColorInfo) {
           setBgColor(mainBgColorInfo.bgColor);
@@ -36,7 +35,6 @@ function TodoSection() {
     const textColorData = getAPI("/home/HomeTextColor"); // textColorData tanımlandı
     textColorData
       .then(function (result) {
-        console.log(result);
         const mainTextColorInfo = result.find((item) => item.pageId === "main");
         if (mainTextColorInfo) {
           setTextColor(mainTextColorInfo.TextColor); 
@@ -72,7 +70,7 @@ const handleAddTodo = () => {
       className={`xl:pt-[0px] main-section-hover`}
       style={{ backgroundColor: bgColor, color: textColor }}
     >
-      <div className="container mx-auto py-20 px-20">
+      <div className="container mx-auto py-0 md:py-20 px-4 md:px-20">
         <h2 className="text-3xl font-bold text-center mb-4">Todo</h2>
        <div className="flex gap-2 mb-4 w-full">
           <select

@@ -27,7 +27,6 @@ export const TopBar = () => {
     const imageData = getAPI("/home/HomeImage");
     imageData
       .then(function (result) {
-        console.log(result);
         setImage(result[0]);
       })
       .catch(function (error) {
@@ -45,7 +44,7 @@ export const TopBar = () => {
   const { logo } = image;
   const { phone } = contact;
   return (
-    <div className=" flex justify-between h-28 items-center mx-6 my-2 max-w-full">
+    <div className=" flex justify-between h-28 items-center mx-1 md:mx-6 my-2 max-w-full">
       <div>
         <a href="#">
           <Image

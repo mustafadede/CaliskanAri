@@ -12,7 +12,6 @@ export const InfoSection = () => {
     const textColorData = getAPI("/home/HomeTextColor"); // textColorData tanımlandı
     textColorData
       .then(function (result) {
-        console.log(result);
         const mainTextColorInfo = result.find(
           (item) => item.pageId === "informations"
         );
@@ -29,7 +28,6 @@ export const InfoSection = () => {
     const infoData = getAPI("/home/HomeInformation");
     infoData
       .then(function (result) {
-        console.log(result);
         setInformations(result);
       })
       .catch(function (error) {
@@ -38,7 +36,6 @@ export const InfoSection = () => {
     const bgColorData = getAPI("/home/HomeBgColor");
     bgColorData
       .then(function (result) {
-        console.log(result);
         const mainBgColorInfo = result.find(
           (item) => item.pageId === "informations"
         );

@@ -20,7 +20,6 @@ export const Footer = () => {
     const textColorData = getAPI("/home/HomeTextColor"); // textColorData tanımlandı
     textColorData
       .then(function (result) {
-        console.log(result);
         const mainTextColorInfo = result.find(
           (item) => item.pageId === "footer"
         );
@@ -36,7 +35,6 @@ export const Footer = () => {
     const bgColorData = getAPI("/home/HomeBgColor");
     bgColorData
       .then(function (result) {
-        console.log(result);
         const mainBgColorInfo = result.find((item) => item.pageId === "footer");
         if (mainBgColorInfo) {
           setBgColor(mainBgColorInfo.bgColor);
@@ -50,7 +48,6 @@ export const Footer = () => {
     const infoData = getAPI("/home/HomeContact");
     infoData
       .then(function (result) {
-        console.log(result[0]);
         setContact(result[0]);
       })
       .catch(function (error) {
@@ -59,7 +56,6 @@ export const Footer = () => {
     const resourceData = getAPI("/home/HomeResources");
     resourceData
       .then(function (result) {
-        console.log(result);
         setResources(result);
       })
       .catch(function (error) {
@@ -68,7 +64,6 @@ export const Footer = () => {
     const courseData = getAPI("/home/HomeFooterCourses");
     courseData
       .then(function (result) {
-        console.log(result);
         setCourses(result);
       })
       .catch(function (error) {

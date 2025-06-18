@@ -15,7 +15,6 @@ const MainSection = () => {
     const infoData = getAPI("/home/HomeInfo");
     infoData
       .then(function (result) {
-        console.log(result);
         setInfo(result[0]);
       })
       .catch(function (error) {
@@ -24,7 +23,6 @@ const MainSection = () => {
     const bgColorData = getAPI("/home/HomeBgColor");
     bgColorData
       .then(function (result) {
-        console.log(result);
         const mainBgColorInfo = result.find((item) => item.pageId === "main");
         if (mainBgColorInfo) {
           setBgColor(mainBgColorInfo.bgColor);
@@ -39,9 +37,7 @@ const MainSection = () => {
     const buttonData = getAPI("/home/HomeButton");
     buttonData
       .then(function (result) {
-        console.log(result);
         const mainButtonInfo = result.filter((item) => item.pageId === "main");
-        console.log(mainButtonInfo);
         if (mainButtonInfo.length > 0) {
           setButton(mainButtonInfo);
         } else {
@@ -55,7 +51,6 @@ const MainSection = () => {
     const positionData = getAPI("/home/HomePosition");
     positionData
       .then(function (result) {
-        console.log(result);
         const mainPositionInfo = result.find((item) => item.pageId === "main");
         if (mainPositionInfo) {
           setPosition(mainPositionInfo.position);
@@ -69,7 +64,6 @@ const MainSection = () => {
     const textColorData = getAPI("/home/HomeTextColor"); // textColorData tanımlandı
     textColorData
       .then(function (result) {
-        console.log(result);
         const mainTextColorInfo = result.find((item) => item.pageId === "main");
         if (mainTextColorInfo) {
           setTextColor(mainTextColorInfo.TextColor); // setTextColor çağrısı düzeltildi
@@ -84,7 +78,6 @@ const MainSection = () => {
     const imageData = getAPI("/home/HomeImage"); // textColorData tanımlandı
     imageData
       .then(function (result) {
-        console.log(result);
         setImage(result[0]);
       })
       .catch(function (error) {

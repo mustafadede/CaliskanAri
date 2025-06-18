@@ -6,7 +6,6 @@ import { TopBar } from "./topbar";
 import { CiSearch } from "react-icons/ci";
 import { IoIosLogIn } from "react-icons/io";
 import "./header.css";
-import MenuItems from "./MenuItems";
 import { getAPI } from "@/services/fetchAPI";
 
 function classNames(...classes) {
@@ -22,7 +21,6 @@ export const SearchBar = () => {
     const imageData = getAPI("/home/HomeImage");
     imageData
       .then(function (result) {
-        console.log(result);
         setImage(result[0]);
       })
       .catch(function (error) {
@@ -32,7 +30,6 @@ export const SearchBar = () => {
     const MenusData = getAPI("/home/HomeMenus");
 
     MenusData.then(function (result) {
-      console.log(result);
       setMenus(result);
     }).catch(function (error) {
       console.error("Hata oluştu:", error);
