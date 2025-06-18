@@ -6,6 +6,6 @@
 
 ![image](https://github.com/user-attachments/assets/eaae10e6-c46d-4057-ae5d-22cc2f0a76b7)
 
-# Çalışkan Arı Todo Websitesi
+# Çalışkan Arı Todo sitesi
 
 ### .env dosyası güvenlik sebebiyle eklenmedi.
