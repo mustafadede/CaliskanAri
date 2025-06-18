@@ -1,0 +1,75 @@
+.MuiBadge-anchorOriginTopRightRectangular {
+  background-color: #ffcd1f !important;
+}
+.hover-animation:hover svg {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.menus {
+  display: flex;
+  list-style: none;
+}
+
+.menu-items {
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  height: min-content;
+}
+
+.menu-items a {
+  @apply hover:text-buttonColor flex items-center text-sm font-semibold leading-6 text-gray-900
+  transition-all duration-200 ease-in-out;
+}
+
+.menu-items button {
+  @apply hover:text-buttonColor flex items-center text-sm font-semibold leading-6 text-gray-900
+  transition-all duration-200 ease-in-out;
+}
+
+.menu-items a,
+.menu-items button {
+  text-align: left;
+  padding: 0.7rem 1rem;
+}
+
+
+.dropdown {
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  font-size: 0.875rem;
+  z-index: 9999;
+  width: 350px;
+  list-style: none;
+  background-color: black;
+  background-color: #fff;
+  border-radius: 0.5 rem;
+  display: none;
+  @apply
+  shadow-sm absolute left-0 top-full w-screen max-w-md rounded-md bg-white ring-1 ring-gray-900/5
+}
+
+.dropdown.show {
+  display: block;
+}
+
+.dropdown.dropdown-submenu {
+  position: absolute;
+  left: 105%;
+  top: -7px;
+}
+
+ul {
+  @apply p-4 cursor-pointer
+}
+
+ul .menu-items {
+  @apply
+  transition-all duration-200 ease-in-out relative flex items-center gap-x-6 rounded-lg text-sm leading-6 hover:bg-gray-50;
+}
