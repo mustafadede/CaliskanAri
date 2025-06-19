@@ -1,6 +1,7 @@
-import { getAPI } from "@/services/fetchAPI";
+import { getAPI, postAPI } from "@/services/fetchAPI";
 import useTodoStore from "@/utils/todoStore";
 import { useEffect, useState } from "react";
+import TodoComponent from "./todo-component";
 
 function TodoSection() {
     const [textColor, setTextColor] = useState(""); 
@@ -8,15 +9,17 @@ function TodoSection() {
     const [bgColor, setBgColor] = useState("");
     const [newLabel, setNewLabel] = useState("");
     const [newTitle, setNewTitle] = useState("");
+    const [loading, setLoading] = useState(true);
     const {
     todos,
-    editId,
     editTitle,
     setEditId,
+    deleteTodo,
+    editId,
     setEditTitle,
     addTodo,
-    deleteTodo,
     updateTodo,
+    setTodos,
     } = useTodoStore();
     useEffect(() => {
     const bgColorData = getAPI("/home/HomeBgColor");
@@ -45,6 +48,15 @@ function TodoSection() {
       .catch(function (error) {
         console.error("Hata oluştu:", error);
       });
+      getAPI("/home/Todo").then(res => {
+        console.log(res)
+         if (res) {
+            setTodos(res);
+          } else {
+            setTodos([]); 
+          }
+        setLoading(false)
+      }).catch(err => console.log(err))
   }, []);
 
     const handleEdit = (id, title) => {
@@ -53,18 +65,35 @@ function TodoSection() {
     };
 
     const handleEditSave = (id) => {
-        updateTodo(id, editTitle);
-        setEditId(null);
-        setEditTitle("");
+       postAPI(`/home/Todo/${id}`, { title: editTitle }, "PUT").then(() => {
+          updateTodo(id, editTitle);
+          setEditId(null);
+          setEditTitle("");
+        })
     };
 
 
 const handleAddTodo = () => {
   if (!newLabel || !newTitle) return;
-  addTodo({ id: Date.now(), label: newLabel, title: newTitle });
-  setNewLabel("");
-  setNewTitle("");
+  const values = {
+    label: newLabel,
+    title: newTitle,
+  }
+  postAPI("home/Todo", values).then((createdTodo) => {
+    addTodo(createdTodo || { id: Date.now(),  ...values });
+    setNewLabel("");
+    setNewTitle("");
+  }).catch(err => {
+    console.log(err)
+  })
 };
+
+const handleDeleteTodo = (id) => {
+  postAPI(`/home/Todo`, id, "DELETE").then(res => {
+    deleteTodo(id);
+  })
+};
+
   return (
      <div
       className={`xl:pt-[0px] main-section-hover`}
@@ -99,45 +128,17 @@ const handleAddTodo = () => {
         </button>
         </div>
         <ul className="space-y-4">
-         {todos.map((todo) => (
-            <li key={todo.id} className="flex items-center gap-4 bg-white/10 rounded p-4 shadow">
-                <span className="px-2 py-2 bg-yellow-500 text-white rounded text-sm font-semibold">
-                {todo.label}
-                </span>
-                {editId === todo.id ? (
-                <input
-                    className="border rounded px-2 w-full py-1 mr-2"
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleEditSave(todo.id)}
-                    autoFocus
-                />
-                ) : (
-                <span className="flex-1">{todo.title}</span>
-                )}
-                {editId === todo.id ? (
-                <button
-                    className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
-                    onClick={() => handleEditSave(todo.id)}
-                >
-                    Save
-                </button>
-                ) : (
-                <button
-                    className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
-                    onClick={() => handleEdit(todo.id, todo.title)}
-                >
-                    Edit
-                </button>
-                )}
-                <button
-                className="bg-red-500 text-white px-2 py-1 rounded"
-                onClick={() => deleteTodo(todo.id)}
-                >
-                Delete
-                </button>
-            </li>
-            ))}
+         {loading && <span className="text-yellow-500 text-center">Loading...</span>}
+         {!loading && todos?.map((todo) => (
+            <TodoComponent key={todo.id} todo={todo}
+            setEditTitle={setEditTitle}
+            deleteTodo={handleDeleteTodo}
+            editTitle={editTitle}
+            editId={editId}
+            handleEditSave={handleEditSave}
+            handleEdit={handleEdit}
+            />
+          ))}
         </ul>
       </div>
     </div>

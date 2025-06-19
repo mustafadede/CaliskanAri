@@ -1,10 +1,7 @@
 import { create } from 'zustand';
 
 const useTodoStore = create((set) => ({
-  todos: [
-    { id: 1, label: 'Work', title: 'Finish project report' },
-    { id: 2, label: 'Personal', title: 'Buy groceries' },
-  ],
+  todos: [],
   editId: null,
   editTitle: '',
   setTodos: (todos) => set({ todos }),

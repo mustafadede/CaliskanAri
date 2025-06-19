@@ -323,3 +323,19 @@ model HomeImage {
   bannerShape  String
   beinstractor String
 }
+
+
+enum TodoLabel {
+  Work
+  Personal
+  Shopping
+  Other
+}
+
+model Todo {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  label     TodoLabel
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}

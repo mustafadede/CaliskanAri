@@ -300,8 +300,41 @@ async function homeHandler(req, res) {
           );
           console.log(responseUpdateFooterContact);
           return res.status(200).json({ message: "test", data: data });
+        case "Todo":
+          if (requestMethod === "GET") {
+            try {
+              const data = await getAllData("Todo");
+              return res.status(200).json(data);
+            } catch (error) {
+              return res.status(500).json({ error: error.message });
+            }
+          }
+          if (requestMethod === "POST") {
+            try {
+              const response = await createNewData("Todo", data);
+              return res.status(200).json(response);
+            } catch (error) {
+              return res.status(500).json({ error: error.message });
+            }
+          }
+          if (requestMethod === "PUT") {
+            try {
+              const { id, ...updateFields } = data;
+              const response = await updateDataByAny("Todo", { id }, updateFields);
+              return res.status(200).json(response);
+            } catch (error) {
+              return res.status(500).json({ error: error.message });
+            }
+          }
+          if (requestMethod === "DELETE") {
+            try {
+              const response = await deleteDataByAny("Todo", { id: data });
+              return res.status(200).json(response);
+            } catch (error) {
+              return res.status(500).json({ error: error.message });
+            }
+          }
       }
-
       break;
     default:
       res.setHeader("Allow", ["GET", "POST", "DELETE"]);
