@@ -127,8 +127,9 @@ const handleDeleteTodo = (id) => {
             Add
         </button>
         </div>
-        <ul className="space-y-4">
-         {loading && <span className="text-yellow-500 text-center">Loading...</span>}
+        <ul className="space-y-4 w-full">
+        {!loading && todos.length === 0 && <p className="text-slate-500 w-full text-center">Todo list is empty. Create a new todo please!</p>}
+         {loading && <p className="text-yellow-500 w-full text-center">Loading...</p>}
          {!loading && todos?.map((todo) => (
             <TodoComponent key={todo.id} todo={todo}
             setEditTitle={setEditTitle}
