@@ -65,7 +65,7 @@ function TodoSection() {
     };
 
     const handleEditSave = (id) => {
-       postAPI(`/home/Todo/${id}`, { title: editTitle }, "PUT").then(() => {
+       postAPI(`/home/Todo`, { id, title: editTitle }, "PUT").then(() => {
           updateTodo(id, editTitle);
           setEditId(null);
           setEditTitle("");
