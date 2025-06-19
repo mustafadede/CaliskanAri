@@ -199,8 +199,8 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                       <div className={styles.right_side_logoImage}>
                         <Image
                           src='/image.png'
-                          width='250'
-                          height='250'
+                          width='150'
+                          height='150'
                           alt='logo'
                           priority={true}
                         />
@@ -210,21 +210,28 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                       {`KAYIT`}
                     </h1>
                     {/* Progress Bar (Stepper) */}
-                    <div className='grid gap-8 mx-0 md:mx-auto row-gap-0 grid-cols-2 4xl:gap-40 justify-center'>
+                    <div className='grid gap-8 mx-0 md:mx-8 row-gap-0 grid-cols-3 4xl:gap-40 justify-center'>
                       {/* Progress Bar Step 1 */}
                       <Stepper
                         activeTab={1}
-                        title={`Kişisel Bilgiler`}
+                        title={`${PageLabelNormal} Bilgileri`}
                         activeTitle={activeTab == 1}
                         showIcon={activeTab != 1}
                         icon={<FaCheck size={46} />}
                         stepCompleted={activeTab != 1}
                       />
                       {/* Progress Bar Step 2 */}
-                    
-                      {/* Progress Bar Step 3 */}
                       <Stepper
                         activeTab={2}
+                        title='Okul Bilgileri'
+                        activeTitle={activeTab == 2}
+                        showIcon={activeTab > 2}
+                        icon={<FaCheck size={46} />}
+                        stepCompleted={activeTab > 2}
+                      />
+                      {/* Progress Bar Step 3 */}
+                      <Stepper
+                        activeTab={3}
                         title='Giriş Bilgileri'
                         activeTitle={activeTab == 3}
                         showIcon={activeTab == 3 && isRegister}
@@ -291,13 +298,249 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                     </div>
                     <div className='w-full relative z-10'>
                       {/* Step 2 */}
-                   
+                      <Transition
+                        className='mx-8 my-4 max-w-full'
+                        show={activeTab === 2}
+                        enter='transition-all ease-in-out duration-500 delay-[200ms]'
+                        enterFrom='opacity-0 translate-y-6'
+                        enterTo='opacity-100 translate-y-0'
+                        leave='transition-all ease-in-out duration-300'
+                        leaveFrom='opacity-100'
+                        leaveTo='opacity-0'
+                      >
+                        <div className='grid grid-cols-2 gap-2'>
+                          <div>
+                            <Select
+                              labelValue='Okulun Bulunduğu İl'
+                              id='city'
+                              name='city'
+                              optionLabel='İl Seç'
+                              onChange={(e) => {
+                                props.handleChange(e);
+                                setCity(e.target.value.toString());
+                                props.values.town = '';
+                              }}
+                            >
+                              <option
+                                disabled={true}
+                                className=' hidden md:block bg-gray-200 text-[5px]'
+                              ></option>
+                              {CitiesData.length > 0 &&
+                                CitiesData.map((item, index) => {
+                                  return (
+                                    <option key={index} value={item.name}>
+                                      {item.name}
+                                    </option>
+                                  );
+                                })}
+                            </Select>
+
+                            {props.touched.city && (
+                              <ErrorText>{props.errors.city}</ErrorText>
+                            )}
+                          </div>
+                          <div>
+                            <Select
+                              labelValue='Okulun Bulunduğu İlçe'
+                              id='town'
+                              name='town'
+                              disabled={city ? false : true}
+                              optionLabel='İlçe Seç'
+                              onChange={(e) => {
+                                props.handleChange(e);
+                                setTown(e.target.value.toString());
+                                props.values.schollName = '';
+                                props.values.schooltype = '';
+                              }}
+                            >
+                              <option
+                                disabled={true}
+                                className='hidden md:block bg-gray-200 text-[5px]'
+                              ></option>
+                              {city !== '' &&
+                                CitiesData.filter(
+                                  (ft) =>
+                                    ft.name.toLowerCase() === city.toLowerCase()
+                                )[0].counties.map((item, index) => {
+                                  return (
+                                    <option key={index} value={item}>
+                                      {item}
+                                    </option>
+                                  );
+                                })}
+                            </Select>
+
+                            {props.touched.town && (
+                              <ErrorText>{props.errors.town}</ErrorText>
+                            )}
+                          </div>
+                          <div>
+                            <Select
+                              labelValue='Okul Türü'
+                              id='schooltype'
+                              name='schooltype'
+                              disabled={town ? false : true}
+                              optionLabel='Okul Türü Seç'
+                              onChange={(e) => {
+                                e.target.value === 'anaokul'
+                                  ? (props.values.classNumber = 'anaokul')
+                                  : (props.values.classNumber = '');
+                                props.handleChange(e);
+                                setSchooltype(e.target.value);
+                                props.values.schollName = '';
+                              }}
+                            >
+                              <option
+                                disabled={true}
+                                className=' hidden md:block bg-gray-200 text-[5px]'
+                              ></option>
+                              {town && (
+                                <>
+                                  <option value='anaokul'>Anaokulu</option>
+                                  <option value='ilkokul'>İlkokul</option>
+                                  <option value='ortaokul'>Ortaokul</option>
+                                  <option value='lise'>Lise</option>
+                                  <option value='diger'>
+                                    Okulum Listede Yok
+                                  </option>
+                                </>
+                              )}
+                            </Select>
+
+                            {props.touched.schooltype && (
+                              <ErrorText>{props.errors.schooltype}</ErrorText>
+                            )}
+                          </div>
+                          {props.values.schooltype === 'diger' ? (
+                            <div>
+                              <Input
+                                labelValue='Okul İsmi'
+                                id='schollName'
+                                name='schollName'
+                                type='text'
+                                disabled={
+                                  schooltype || isloading || isRegister
+                                    ? false
+                                    : true
+                                }
+                                onChange={props.handleChange}
+                                placeholder='Okul ismini giriniz.'
+                              />
+                              {props.touched.schollName && (
+                                <ErrorText>{props.errors.schollName}</ErrorText>
+                              )}
+                            </div>
+                          ) : (
+                            <div>
+                              <Select
+                                labelValue='Okul İsmi'
+                                id='schollName'
+                                name='schollName'
+                                disabled={schooltype ? false : true}
+                                optionLabel='Okul Seç'
+                                onChange={(e) => {
+                                  props.handleChange(e);
+                                }}
+                              >
+                                <option
+                                  disabled={true}
+                                  className=' hidden md:block bg-gray-200 text-[5px]'
+                                ></option>
+                                {schollNames.length > 0 &&
+                                  props.values.schooltype &&
+                                  schollNames.map((item, index) => {
+                                    return (
+                                      <option
+                                        key={index}
+                                        value={item.dc_SchoolName}
+                                      >
+                                        {item.dc_SchoolName}
+                                      </option>
+                                    );
+                                  })}
+                              </Select>
+
+                              {props.touched.schollName && (
+                                <ErrorText>{props.errors.schollName}</ErrorText>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div
+                          className={
+                            schooltype === 'anaokul' ? 'hidden' : 'block'
+                          }
+                        >
+                          <Select
+                            labelValue='Sınıf'
+                            id='classNumber'
+                            name='classNumber'
+                            disabled={schooltype ? false : true}
+                            optionLabel='Sınıf Seç'
+                            onChange={props.handleChange}
+                          >
+                            <option
+                              disabled={true}
+                              className=' hidden md:block bg-gray-200 text-[5px]'
+                            ></option>
+                            {schooltype === 'ilkokul' && (
+                              <>
+                                <option value='1. Sınıf'>1. Sınıf</option>
+                                <option value='2. Sınıf'>2. Sınıf</option>
+                                <option value='3. Sınıf'>3. Sınıf</option>
+                                <option value='4. Sınıf'>4. Sınıf</option>
+                              </>
+                            )}
+                            {schooltype === 'ortaokul' && (
+                              <>
+                                <option value='5. Sınıf'>5. Sınıf</option>
+                                <option value='6. Sınıf'>6. Sınıf</option>
+                                <option value='7. Sınıf'>7. Sınıf</option>
+                                <option value='8. Sınıf'>8. Sınıf</option>
+                              </>
+                            )}
+                            {schooltype === 'lise' && (
+                              <>
+                                <option value='9. Sınıf'>9. Sınıf</option>
+                                <option value='10. Sınıf'>10. Sınıf</option>
+                                <option value='11. Sınıf'>11. Sınıf</option>
+                                <option value='12. Sınıf'>12. Sınıf</option>
+                              </>
+                            )}
+                            {schooltype === 'diger' && (
+                              <>
+                                <option
+                                  disabled={true}
+                                  className=' hidden md:block bg-gray-200 text-[5px]'
+                                ></option>
+                                <option value='anaokul'>Anaokul</option>
+                                <option value='1. Sınıf'>1. Sınıf</option>
+                                <option value='2. Sınıf'>2. Sınıf</option>
+                                <option value='3. Sınıf'>3. Sınıf</option>
+                                <option value='4. Sınıf'>4. Sınıf</option>
+                                <option value='5. Sınıf'>5. Sınıf</option>
+                                <option value='6. Sınıf'>6. Sınıf</option>
+                                <option value='7. Sınıf'>7. Sınıf</option>
+                                <option value='8. Sınıf'>8. Sınıf</option>
+                                <option value='9. Sınıf'>9. Sınıf</option>
+                                <option value='10. Sınıf'>10. Sınıf</option>
+                                <option value='11. Sınıf'>11. Sınıf</option>
+                                <option value='12. Sınıf'>12. Sınıf</option>
+                              </>
+                            )}
+                          </Select>
+
+                          {props.touched.classNumber && (
+                            <ErrorText>{props.errors.classNumber}</ErrorText>
+                          )}
+                        </div>
+                      </Transition>
                     </div>
                     <div className='w-full relative z-10'>
                       {/* Step 3 */}
                       <Transition
                         className='mx-8 my-4 max-w-full'
-                        show={activeTab === 2}
+                        show={activeTab === 3}
                         enter='transition-all ease-in-out duration-500 delay-[200ms]'
                         enterFrom='opacity-0 translate-y-6'
                         enterTo='opacity-100 translate-y-0'
@@ -376,7 +619,7 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                             onClick={(e) => nextActiveTab(e, props)}
                             className={`${
                               activeTab === 1 ? 'w-full' : 'w-3/4'
-                            } mb-6 text-white text-xl bg-yellow-500 4xl:text-4xl border rounded-md p-4 hover:bg-primarydark`}
+                            } mb-6 text-white text-xl bg-yellow-500 4xl:text-4xl border rounded-md p-4 hover:bg-yellow-500dark`}
                           >
                             Sonraki Sayfa
                           </button>
@@ -389,7 +632,7 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                             className={`${
                               isloading == true || isRegister == true
                                 ? 'bg-secondary'
-                                : 'bg-yellow-500 hover:bg-primarydark'
+                                : 'bg-yellow-500 hover:bg-yellow-500dark'
                             }  w-full mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                           >
                             Kayıt Ol
@@ -411,7 +654,7 @@ const StudentRegisterComponent = ({ CitiesData }) => {
                                 : 'text-yellow-500 font-semibold hover:underline'
                             }  `}
                           >
-                            {`Giriş yap`}
+                            {`${PageLabelNormal} Giriş.`}
                           </Link>
                         </p>
                         <p className='text-md 2xl:text-xl 4xl:xl:text-2xl text-black'>

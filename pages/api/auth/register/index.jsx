@@ -48,8 +48,6 @@ const handler = async (req, res) =>  {
                     || data.email == ""     || data.email == undefined      || data.email == null
                     || data.password == ""  || data.password == undefined   || data.password == null
                     || data.phone == ""     || data.phone == undefined      || data.phone == null
-                    || data.city == ""      || data.city == undefined       || data.city == null
-                    || data.town == ""      || data.town == undefined       || data.town == null                    
                 ){
                     throw new Error("Lütfen tüm alanları doğru bir şekilde doldurunuz!");
                 }

@@ -23,19 +23,6 @@ const studentValidationSchema = Yup.object({
       'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 5xxxxxxxxx )'
     ),
 
-  city: Yup.string().required('Şehir seçimi boş bırakılamaz.'),
-
-  town: Yup.string().required('İlçe seçimi boş bırakılamaz.'),
-
-  schooltype: Yup.string().required('Okul türü boş bırakılamaz.'),
-
-  schollName: Yup.string().required('Okul seçimi boş bırakılamaz.'),
-
-  classNumber: Yup.string()
-    .required('Lütfen Sınıfınızı Seçiniz.')
-    .max(10, 'Yanlış bir değer girdiniz.')
-    .min(1, 'Sınıfınız 1-12 arasında olmalıdır'),
-
   email: Yup.string()
     .required('e mail boş bırakılamaz.')
     .email('Geçerli bir e mail adresi giriniz.'),
