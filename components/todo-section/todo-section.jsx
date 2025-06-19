@@ -75,12 +75,12 @@ function TodoSection() {
 
 const handleAddTodo = () => {
   if (!newLabel || !newTitle) return;
-  const values = {
+
+  postAPI("/home/Todo", {
     label: newLabel,
     title: newTitle,
-  }
-  postAPI("home/Todo", values).then((createdTodo) => {
-    addTodo(createdTodo || { id: Date.now(),  ...values });
+  }).then((createdTodo) => {
+    addTodo(createdTodo);
     setNewLabel("");
     setNewTitle("");
   }).catch(err => {
